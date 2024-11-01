@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: microservices-auth-app-backend:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 4000
+        envFrom:
+        - configMapRef:
+            name: postgres-config
+        env:
+        - name: JWT_SECRET
+          value: your_jwt_secret_key

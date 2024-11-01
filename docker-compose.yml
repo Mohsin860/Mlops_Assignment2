@@ -1,9 +1,11 @@
 # docker-compose.yml
-version: '3.8'
+version: '3'  # Changed from 3.8 to 3
 
 services:
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     depends_on:
@@ -14,7 +16,9 @@ services:
       - REACT_APP_AUTH_SERVICE_URL=http://localhost:4001
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "4000:4000"
     depends_on:
@@ -29,7 +33,9 @@ services:
       - AUTH_SERVICE_URL=http://auth-service:4001
 
   auth-service:
-    build: ./auth-service
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
     ports:
       - "4001:4001"
     depends_on:
@@ -43,7 +49,7 @@ services:
       - JWT_SECRET=your_jwt_secret_key
 
   postgres:
-    image: postgres:latest
+    image: postgres:13
     ports:
       - "5432:5432"
     environment:
