@@ -1,0 +1,11 @@
+# k8s/backend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  ports:
+  - port: 4000
+    targetPort: 4000
+  selector:
+    app: backend
